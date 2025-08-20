@@ -9,11 +9,9 @@ def emot_detector():
     Retrieve the text to analyze from the request arguments,
     then pass the text to the emotion_detector function
     """
-    # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
-    # Pass the text to the emotion_detector function
     response = emotion_detector(text_to_analyze)
-    # Extract the string emotion from the response
+    # Extract the emotion value from the response
     anger = response ['anger']
     disgust = response ['disgust']
     fear = response ['fear']
@@ -23,10 +21,14 @@ def emot_detector():
     if dominant_emotion == 'None':
         return  "Invalid text! Please try again!."
     # Return a formatted string with the emotion
-    return f"For the given statement, the system response is 'anger':{anger}, 'disgust':{disgust}, 'fear':{fear}, 'joy':{joy} and 'sadness':{sadness}. The dominant emotion is {dominant_emotion}."
-
+    return (
+            "For the given statement, the system response is "
+            f"'anger':{anger}, 'disgust':{disgust}, 'fear':{fear}, 'joy':{joy} "
+            f"and 'sadness':{sadness}. "
+            f"The dominant emotion is {dominant_emotion}."
+    )
 @app.route("/")
-def render_index_page():  #Run render_template function on the HTML
+def render_index_page():
     """Run render_template function on the HTML"""
     return render_template('index.html')
 if __name__ == "__main__":
